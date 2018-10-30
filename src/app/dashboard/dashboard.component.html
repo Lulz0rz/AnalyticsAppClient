@@ -1,0 +1,40 @@
+<div class="container-fluid">
+  <div class="row mt-4">
+    <div class="col-sm" *ngIf="lineChartLabels.length">
+      <h5 class="text-center">Visitors Per Day</h5>
+      <canvas baseChart width="400" height="400"
+      [datasets]="lineChartData"
+      [labels]="lineChartLabels"
+      [options]="lineChartOptions"
+      height="90vh"
+      chartType="line"></canvas>
+    </div>
+  </div>
+  <div class="row mt-4">
+    <div class="col-sm" *ngIf="browserChartData.length && browserChartLabels.length">
+      <h5 class="text-center">Bowser Usage</h5>
+      <canvas baseChart [data]="browserChartData" [labels]="browserChartLabels" chartType="pie"></canvas>
+    </div>
+    <div class="col-sm" *ngIf="platformChartData.length && platformChartLabels.length">
+      <h5 class="text-center">Platform Usage</h5>
+      <canvas baseChart [data]="platformChartData" [labels]="platformChartLabels" chartType="pie"></canvas>
+    </div>
+    <div class="col-sm">
+        <h5 class="text-center">Most Popular Pages</h5>
+        <table class="table table-hover mt-4" *ngIf="events.length">
+            <thead>
+              <tr>
+                <th scope="col">Page Title</th>
+                <th scope="col">Page Views</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of pages">
+                <td>{{item.pageTitle}}</td>
+                <td>{{item.count}}</td>
+              </tr>
+          </tbody>
+        </table>
+    </div>
+  </div>
+</div>

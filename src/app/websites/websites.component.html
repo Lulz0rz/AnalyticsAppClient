@@ -1,0 +1,46 @@
+<div class="container-fluid">
+
+  <table class="table table-hover" *ngIf="websites.length">
+      <thead>
+        <tr>
+          <th scope="col">Name</th>
+          <th scope="col">Domain</th>
+          <th scope="col">Tracking Code</th>
+          <th scope="col">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of websites">
+          <td [routerLink]="['/dashboard/' + item.websiteId]" class="link">{{item.name}}</td>
+          <td [routerLink]="['/dashboard/' + item.websiteId]" class="link">{{item.domain}}</td>
+          <td>
+            <button type="button" class="btn btn-success" (click)="open(item.websiteId)">View</button></td>
+          <td>
+              <div class="btn-group" role="group" aria-label="Action Buttons">
+                <button type="button" class="btn btn-danger" (click)="delete(item.name, item.websiteId)">Delete</button>
+              </div>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  <div *ngIf="websites.length">Get started with tracking a new website, click <a href="#" (click)="createNew($event)">here</a>.</div>
+
+  <div class="container card mt-5" *ngIf="(loaded && !websites.length) || showCreate">
+    <div class="card-body">
+      <h5 class="card-title">Track a new website</h5>
+      <form id="websiteForm" (ngSubmit)="onSubmit()" #websiteForm="ngForm">
+          <div class="form-group">
+              <label for="domain">Tracking Name</label>
+              <input type="text" name="name" class="form-control" id="name" placeholder="My Website" [(ngModel)]="website.Name" required minlength="4" autocomplete="off">
+            </div>
+        <div class="form-group">
+          <label for="domain">Domain Name</label>
+          <input type="text" name="domain" class="form-control" id="domain" placeholder="Example www.google.com" [(ngModel)]="website.Domain" required minlength="4" autocomplete="off">
+        </div>
+        <button type="submit" class="btn btn-primary" [disabled]="!websiteForm.form.valid">Create</button>
+      </form>
+    </div>
+  </div>
+  
+</div>
